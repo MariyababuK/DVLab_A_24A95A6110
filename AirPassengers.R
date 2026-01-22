@@ -1,71 +1,97 @@
-#Load AirPassengers dataset
+install.packages("rlang")
+install.packages(c("vctrs", "scales", "lifecycle"))
+# --------------------------------------------------
+# Load AirPassengers dataset
+# --------------------------------------------------
 data(AirPassengers)
 
-#Verify the dataset
+# Verify the dataset
 ?AirPassengers
 class(AirPassengers)
 View(AirPassengers)
 
-#Convert the datset to DataFrame
+# --------------------------------------------------
+# Convert the dataset to Data Frame
+# --------------------------------------------------
 ap_df <- data.frame(
-  year <- time(AirPassengers),
+  year = as.numeric(time(AirPassengers)),
   passengers = as.numeric(AirPassengers)
 )
 ap_df
 
-#Data Frame with Years and months seperately
+# --------------------------------------------------
+# Data Frame with Year and Month separately
+# --------------------------------------------------
 ap_df_months <- data.frame(
-  year= floor(time(AirPassengers)),
-  month = cycle(time(AirPassengers)),
+  year = floor(time(AirPassengers)),
+  month = cycle(AirPassengers),
   passengers = as.numeric(AirPassengers)
 )
 ap_df_months
 
-#Basic Plot
+# --------------------------------------------------
+# Basic Time Series Plot (Base R)
+# --------------------------------------------------
 plot(AirPassengers)
 
-# Plot with Tutle, Axis labels and color
-plot(AirPassengers,
-     type = 'l',
-     main = "AirPassengers Trend Analysis",
-     xlab = "Months",
-     ylab = "No.of Passengers",
-     col = "red"
-     )
-# Changing the line width and point of contact
-plot(AirPassengers,
-     type = 'l',
-     lwd = 1.5,
-     main = "AirPassengers Trend Analysis",
-     xlab = "Months",
-     ylab = "No.of Passengers",
-     col = "red"
+# --------------------------------------------------
+# Plot with Title, Axis labels, and Color
+# --------------------------------------------------
+plot(
+  AirPassengers,
+  type = "l",
+  main = "AirPassengers Trend Analysis",
+  xlab = "Months",
+  ylab = "Number of Passengers",
+  col = "red"
 )
 
-plot(AirPassengers,
-     type = 'l',
-     pch = 16,
-     col = "blue"
+# --------------------------------------------------
+# Plot with Increased Line Width
+# --------------------------------------------------
+plot(
+  AirPassengers,
+  type = "l",
+  lwd = 1.5,
+  main = "AirPassengers Trend Analysis",
+  xlab = "Months",
+  ylab = "Number of Passengers",
+  col = "red"
+)
+
+# --------------------------------------------------
+# Plot with Points and Grid
+# --------------------------------------------------
+plot(
+  AirPassengers,
+  type = "l",
+  pch = 16,
+  col = "blue"
 )
 grid()
 
-# USing GGPLOT2 Library
-#Importing the library ggplot2
+# --------------------------------------------------
+# Using ggplot2 Library
+# --------------------------------------------------
+install.packages("ggplot2")
 library(ggplot2)
 
-# A basic grid with x & y axis
-ggplot(ap_df,
-       aes(x=year, y=passenger))+
-  geom_line(color='darkgreen',linewidth = 0.5)+
+# --------------------------------------------------
+# ggplot2 Time Series Visualization
+# --------------------------------------------------
+ggplot(ap_df, aes(x = year, y = passengers)) +
+  geom_line(color = "darkgreen", linewidth = 0.6) +
+  geom_point(color = "red", size = 0.6) +
+  geom_smooth(se = FALSE, color = "orange") +
   labs(
-        title = 'Trend Analysis of Air Passengers',
-        subtitle = 'From 1940 - 1960',
-        caption = 'Using Built-in Air Passengers dataset',
-        x = 'Months',
-        y = 'No.of Pssengeres')+
-  geom_point(color = 'red',size = 0.5)+
-  geom_smooth(se = FALSE,color = 'orange')+
-  theme_minima()+
+    title = "Trend Analysis of Air Passengers",
+    subtitle = "From 1949 to 1960",
+    caption = "Source: Built-in AirPassengers Dataset",
+    x = "Year",
+    y = "Number of Passengers"
+  ) +
+  theme_minimal() +
   theme(
-    plot.title = element_text(face="bold",size = 14),
-    plot.subtitle = element_text(size = 10))
+    plot.title = element_text(face = "bold", size = 14),
+    plot.subtitle = element_text(size = 10)
+  )
