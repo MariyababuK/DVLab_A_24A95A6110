@@ -1,0 +1,22 @@
+#load & understand the iris dataset
+data(iris)
+str(iris)
+View(iris)
+#Basic Scatter Plot: Sepal Length vs Sepal Width
+plot(iris$Sepal.Length,iris$Sepal.Width)
+#Labeled Scatter Plot
+plot(
+  iris$Sepal.Length,
+  iris$Sepal.Width,
+  main="Sepal Length vs Sepal Width",
+  xlab="Sepal Length(cm)",
+  ylab = "Sepal Width(cm)",
+  col="blue",
+  pch=16
+)
+
+data(iris)
+str(iris)
+view(iris)
+
+Plot
