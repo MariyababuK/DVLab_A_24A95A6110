@@ -1,6 +1,6 @@
 # DV Lab – Week 01B
-# Name:G.Rajesh
-# Roll No:23A91A6183
+# Name:Mariyababu K
+# Roll No:24A95A6110
 
 library(ggplot2)
 
